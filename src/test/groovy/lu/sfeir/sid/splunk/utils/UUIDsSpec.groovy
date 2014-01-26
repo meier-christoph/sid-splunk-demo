@@ -24,6 +24,4 @@ class UUIDsSpec extends Specification
         uuid.length() == 32
         uuid == uuid.toUpperCase()
     }
-
-
 }
