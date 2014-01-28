@@ -11,6 +11,7 @@
 package lu.sfeir.sid.splunk.message;
 
 import lu.sfeir.sid.splunk.utils.Dates;
+import lu.sfeir.sid.splunk.utils.Randoms;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -44,7 +45,7 @@ public class SwiftAcknowledgment extends SwiftMessage
              swift.getReceiver(),
              swift.getNature(),
              swift.getType(),
-             true,
+             Randoms.roll(0.95),
              "SWIFT",
              Dates.now());
     }

@@ -16,6 +16,57 @@ import lu.sfeir.sid.splunk.utils.UUIDs;
 public class SwiftMessage
 {
 
+    private static final String[] BICS = {
+            "AXABFRPPXXX",
+            "FETALULLDIS",
+            "BGLLLULLXXX",
+            "FNETLULLXXX",
+            "BSUILULLXXX",
+            "CEDELULLCSK",
+            "COBALULUXXX",
+            "EUCOLULLXXX",
+            "AGRILULAXXX",
+            "CRESLULLDLX",
+            "DEUTLULBXXX",
+            "DXIALULLXXX",
+            "TUBDLULLXXX",
+            "CELLLULLXXX",
+            "CELLLULLCTD",
+            "CELLLULLGSD",
+            "CELLLULLTRD",
+            "RFLCLULXXXX",
+            "NOLALULLXXX"
+    };
+    private static final String[] TYPES = {
+            "101",
+            "103",
+            "101",
+            "103",
+            "101",
+            "103",
+            "101",
+            "103",
+            "101",
+            "103",
+            "202",
+            "101",
+            "103",
+            "202",
+            "101",
+            "103",
+            "202",
+            "535",
+            "536",
+            "541",
+            "543",
+            "541",
+            "543",
+            "541",
+            "543",
+            "541",
+            "543",
+            "999"
+    };
     private final String reference;
     private final String sender;
     private final String receiver;
@@ -37,38 +88,7 @@ public class SwiftMessage
 
     public SwiftMessage()
     {
-        this(UUIDs.newUUID(),
-             Randoms.anyOf("FETALULLDIS"),
-             Randoms.anyOf("FETALULLDIS"),
-             "MT",
-             Randoms.anyOf("101",
-                           "103",
-                           "101",
-                           "103",
-                           "101",
-                           "103",
-                           "101",
-                           "103",
-                           "101",
-                           "103",
-                           "202",
-                           "101",
-                           "103",
-                           "202",
-                           "101",
-                           "103",
-                           "202",
-                           "535",
-                           "536",
-                           "541",
-                           "543",
-                           "541",
-                           "543",
-                           "541",
-                           "543",
-                           "541",
-                           "543",
-                           "999"));
+        this(UUIDs.newUUID(), Randoms.anyOf(BICS), Randoms.anyOf(BICS), "MT", Randoms.anyOf(TYPES));
     }
 
     public String getReference()
