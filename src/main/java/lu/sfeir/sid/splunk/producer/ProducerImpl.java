@@ -95,8 +95,8 @@ public class ProducerImpl implements Producer
     @Override
     public void stop()
     {
-        Threads.shotdown(srv);
-        Threads.shotdown(srv2);
+        Threads.shutdown(srv);
+        Threads.shutdown(srv2);
     }
 
     @Subscribe

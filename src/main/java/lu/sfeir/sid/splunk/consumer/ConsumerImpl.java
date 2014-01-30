@@ -50,7 +50,7 @@ public class ConsumerImpl implements Consumer
     @Override
     public void stop()
     {
-        Threads.shotdown(srv);
+        Threads.shutdown(srv);
     }
 
     @Subscribe

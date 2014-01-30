@@ -29,7 +29,7 @@ public final class Launcher
 
     private static final Logger LOG = LoggerFactory.getLogger(Launcher.class);
 
-    public static void main(final String... args)
+    public static void main(final String... args) throws Exception
     {
         final ExecutorService srv = Executors.newFixedThreadPool(3);
         final EventBus eventBus = new AsyncEventBus(srv);
@@ -47,11 +47,5 @@ public final class Launcher
         producer.fireMessage();
         producer.fireMessages(500);
 
-
-        //        producer.stop();
-        //        consumer.stop();
-        //        broker.stop();
-        //
-        //        Threads.shotdown(srv);
     }
 }

@@ -51,7 +51,7 @@ public class BrokerImpl implements Broker
     @Override
     public void stop()
     {
-        Threads.shotdown(srv);
+        Threads.shutdown(srv);
     }
 
     @Subscribe

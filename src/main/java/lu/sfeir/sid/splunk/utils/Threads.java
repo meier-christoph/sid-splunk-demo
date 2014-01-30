@@ -25,7 +25,7 @@ public final class Threads
     {
     }
 
-    public static void shotdown(final ExecutorService srv)
+    public static void shutdown(final ExecutorService srv)
     {
         srv.shutdown();
         waitForFinish(srv);
