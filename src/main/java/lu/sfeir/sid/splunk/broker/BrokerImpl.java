@@ -32,10 +32,10 @@ public class BrokerImpl implements Broker
 
     private static final Logger LOG = LoggerFactory.getLogger(BrokerImpl.class);
     private final EventBus eventBus;
-    private int nThreads;
+    private final int nThreads;
     private ExecutorService srv;
 
-    public BrokerImpl(EventBus eventBus, final int nThreads)
+    public BrokerImpl(final EventBus eventBus, final int nThreads)
     {
         this.eventBus = eventBus;
         this.nThreads = nThreads;
@@ -67,7 +67,7 @@ public class BrokerImpl implements Broker
                 {
                     MDC.put("UUID", UUIDs.newUUID());
                     LOG.info("event=broker-message, state=start");
-                    SwiftMessage swift = event.getPayload();
+                    final SwiftMessage swift = event.getPayload();
                     LOG.info("{}", swift);
 
                     Threads.sleep(100, 200);
@@ -99,7 +99,7 @@ public class BrokerImpl implements Broker
                 {
                     MDC.put("UUID", UUIDs.newUUID());
                     LOG.info("event=broker-ack, state=start");
-                    SwiftAcknowledgment ack = event.getPayload();
+                    final SwiftAcknowledgment ack = event.getPayload();
                     LOG.info("{}", ack);
 
                     Threads.sleep(100, 200);

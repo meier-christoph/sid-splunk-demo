@@ -15,7 +15,7 @@ import lu.sfeir.sid.splunk.message.SwiftMessage;
 public class BrokerMessageEvent
 {
 
-    private SwiftMessage payload;
+    private final SwiftMessage payload;
 
     public BrokerMessageEvent(final SwiftMessage payload)
     {

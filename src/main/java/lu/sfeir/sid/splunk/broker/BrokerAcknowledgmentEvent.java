@@ -15,7 +15,7 @@ import lu.sfeir.sid.splunk.message.SwiftAcknowledgment;
 public class BrokerAcknowledgmentEvent
 {
 
-    private SwiftAcknowledgment payload;
+    private final SwiftAcknowledgment payload;
 
     public BrokerAcknowledgmentEvent(final SwiftAcknowledgment payload)
     {

@@ -9,10 +9,13 @@
  */
 
 apply plugin: 'java'
+apply plugin: 'application'
 apply plugin: 'groovy'
 
 group = 'lu.sfeir.sid'
 version = '1.0.0-SNAPSHOT'
+
+mainClassName = 'lu.sfeir.sid.splunk.Launcher'
 
 repositories {
     mavenCentral()

@@ -24,8 +24,8 @@ public final class Dates
         return new Date();
     }
 
-    public static Date clone(Date date)
+    public static Date clone(final Date date)
     {
-        return null != date ? new Date(date.getTime()) : null;
+        return (null != date) ? new Date(date.getTime()) : null;
     }
 }

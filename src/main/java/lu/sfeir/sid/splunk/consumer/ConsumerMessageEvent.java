@@ -15,7 +15,7 @@ import lu.sfeir.sid.splunk.message.SwiftMessage;
 public class ConsumerMessageEvent
 {
 
-    private SwiftMessage payload;
+    private final SwiftMessage payload;
 
     public ConsumerMessageEvent(final SwiftMessage payload)
     {

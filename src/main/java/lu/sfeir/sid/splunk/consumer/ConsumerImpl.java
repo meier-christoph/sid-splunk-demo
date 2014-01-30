@@ -31,10 +31,10 @@ public class ConsumerImpl implements Consumer
 
     private static final Logger LOG = LoggerFactory.getLogger(ConsumerImpl.class);
     private final EventBus eventBus;
-    private int nThreads;
+    private final int nThreads;
     private ExecutorService srv;
 
-    public ConsumerImpl(EventBus eventBus, final int nThreads)
+    public ConsumerImpl(final EventBus eventBus, final int nThreads)
     {
         this.eventBus = eventBus;
         this.nThreads = nThreads;
@@ -66,14 +66,14 @@ public class ConsumerImpl implements Consumer
                 {
                     MDC.put("UUID", UUIDs.newUUID());
                     LOG.info("event=consumer-message, state=start");
-                    SwiftMessage swift = event.getPayload();
+                    final SwiftMessage swift = event.getPayload();
                     LOG.info("{}", swift);
 
                     Threads.sleep(100, 350);
 
                     Failures.fail(0.076, "[C076] Failed to process swift message [%s]", swift.getReference());
 
-                    SwiftAcknowledgment ack = new SwiftAcknowledgment(swift);
+                    final SwiftAcknowledgment ack = new SwiftAcknowledgment(swift);
                     LOG.info("{}", ack);
 
                     Failures.fail(0.027, "[C027] Failed to send acknowledgment [%s]", ack.getReference());

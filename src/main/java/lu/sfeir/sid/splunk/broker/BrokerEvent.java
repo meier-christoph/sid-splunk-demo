@@ -13,7 +13,7 @@ package lu.sfeir.sid.splunk.broker;
 public class BrokerEvent
 {
 
-    private Object payload;
+    private final Object payload;
 
     public BrokerEvent(final Object payload)
     {

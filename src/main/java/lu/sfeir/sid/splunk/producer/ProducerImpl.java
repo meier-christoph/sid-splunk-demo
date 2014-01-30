@@ -31,11 +31,11 @@ public class ProducerImpl implements Producer
 
     private static final Logger LOG = LoggerFactory.getLogger(ProducerImpl.class);
     private final EventBus eventBus;
-    private int nThreads;
+    private final int nThreads;
     private ExecutorService srv;
     private ExecutorService srv2;
 
-    public ProducerImpl(EventBus eventBus, final int nThreads)
+    public ProducerImpl(final EventBus eventBus, final int nThreads)
     {
         this.eventBus = eventBus;
         this.nThreads = nThreads;
@@ -66,7 +66,7 @@ public class ProducerImpl implements Producer
 
                     Failures.fail(0.012, "[P012] Failed to create swift message");
 
-                    SwiftMessage swift = new SwiftMessage();
+                    final SwiftMessage swift = new SwiftMessage();
                     LOG.info("{}", swift);
 
                     Failures.fail(0.034, "[P034] Failed to send swift message [%s]", swift.getReference());
@@ -112,7 +112,7 @@ public class ProducerImpl implements Producer
                 {
                     MDC.put("UUID", UUIDs.newUUID());
                     LOG.info("event=producer-ack, state=start");
-                    SwiftAcknowledgment ack = event.getPayload();
+                    final SwiftAcknowledgment ack = event.getPayload();
                     LOG.info("{}", ack);
 
                     Threads.sleep(200, 350);

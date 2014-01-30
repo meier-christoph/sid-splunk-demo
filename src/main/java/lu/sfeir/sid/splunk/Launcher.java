@@ -24,23 +24,23 @@ import org.slf4j.LoggerFactory;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class Launcher
+public final class Launcher
 {
 
     private static final Logger LOG = LoggerFactory.getLogger(Launcher.class);
 
-    public static void main(String... args)
+    public static void main(final String... args)
     {
-        ExecutorService srv = Executors.newFixedThreadPool(3);
-        EventBus eventBus = new AsyncEventBus(srv);
+        final ExecutorService srv = Executors.newFixedThreadPool(3);
+        final EventBus eventBus = new AsyncEventBus(srv);
 
-        Producer producer = new ProducerImpl(eventBus, 3);
+        final Producer producer = new ProducerImpl(eventBus, 3);
         producer.start();
 
-        Broker broker = new BrokerImpl(eventBus, 3);
+        final Broker broker = new BrokerImpl(eventBus, 3);
         broker.start();
 
-        Consumer consumer = new ConsumerImpl(eventBus, 3);
+        final Consumer consumer = new ConsumerImpl(eventBus, 3);
         consumer.start();
 
 

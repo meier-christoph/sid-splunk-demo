@@ -25,20 +25,20 @@ public final class Threads
     {
     }
 
-    public static void shotdown(ExecutorService srv)
+    public static void shotdown(final ExecutorService srv)
     {
         srv.shutdown();
         waitForFinish(srv);
     }
 
-    public static void waitForFinish(ExecutorService srv)
+    public static void waitForFinish(final ExecutorService srv)
     {
         while (!srv.isTerminated())
         {
         }
     }
 
-    public static void sleep(long time)
+    public static void sleep(final long time)
     {
         try
         {
@@ -50,7 +50,7 @@ public final class Threads
         }
     }
 
-    public static void sleep(long min, int delta)
+    public static void sleep(final long min, final int delta)
     {
         sleep(new Random().nextInt(delta) + min);
     }

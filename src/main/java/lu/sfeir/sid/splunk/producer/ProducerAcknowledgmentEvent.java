@@ -15,7 +15,7 @@ import lu.sfeir.sid.splunk.message.SwiftAcknowledgment;
 public class ProducerAcknowledgmentEvent
 {
 
-    private SwiftAcknowledgment payload;
+    private final SwiftAcknowledgment payload;
 
     public ProducerAcknowledgmentEvent(final SwiftAcknowledgment payload)
     {

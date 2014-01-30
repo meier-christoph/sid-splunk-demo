@@ -15,20 +15,20 @@ import java.util.Random;
 public final class Randoms
 {
 
-    public static final int ROLL_MAX = 1000000;
+    private static final int ROLL_MAX = 1000000;
 
     private Randoms()
     {
     }
 
-    public static String anyOf(String... values)
+    public static String anyOf(final String... values)
     {
         return values[new Random().nextInt(values.length)];
     }
 
-    public static boolean roll(double proba)
+    public static boolean roll(final double probability)
     {
-        int roll = new Random().nextInt(ROLL_MAX);
-        return roll < (proba * ROLL_MAX);
+        final int roll = new Random().nextInt(ROLL_MAX);
+        return roll < (probability * ROLL_MAX);
     }
 }
