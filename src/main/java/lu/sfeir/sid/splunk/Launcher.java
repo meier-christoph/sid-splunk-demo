@@ -18,6 +18,7 @@ import lu.sfeir.sid.splunk.consumer.Consumer;
 import lu.sfeir.sid.splunk.consumer.ConsumerImpl;
 import lu.sfeir.sid.splunk.producer.Producer;
 import lu.sfeir.sid.splunk.producer.ProducerImpl;
+import lu.sfeir.sid.splunk.utils.Threads;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,5 +48,16 @@ public final class Launcher
         producer.fireMessage();
         producer.fireMessages(500);
 
+        Runtime.getRuntime().addShutdownHook(new Thread()
+        {
+            public void run()
+            {
+                LOG.warn("shutdown initiated ...");
+                Threads.shutdown(srv);
+                producer.stop();
+                broker.stop();
+                consumer.stop();
+            }
+        });
     }
 }

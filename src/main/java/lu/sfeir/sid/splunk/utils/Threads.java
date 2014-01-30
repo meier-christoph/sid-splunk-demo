@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public final class Threads
 {
@@ -27,14 +28,19 @@ public final class Threads
 
     public static void shutdown(final ExecutorService srv)
     {
-        srv.shutdown();
-        waitForFinish(srv);
-    }
-
-    public static void waitForFinish(final ExecutorService srv)
-    {
-        while (!srv.isTerminated())
+        try
         {
+            srv.shutdown();
+            if (!srv.awaitTermination(60, TimeUnit.SECONDS))
+            {
+                srv.shutdownNow();
+            }
+        }
+        catch (final InterruptedException ex)
+        {
+            LOG.error(ex.getMessage(), ex);
+            srv.shutdownNow();
+            Thread.currentThread().interrupt();
         }
     }
 
