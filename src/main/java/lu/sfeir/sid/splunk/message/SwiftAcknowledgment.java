@@ -10,18 +10,15 @@
 
 package lu.sfeir.sid.splunk.message;
 
-import lu.sfeir.sid.splunk.utils.Dates;
 import lu.sfeir.sid.splunk.utils.Randoms;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import org.joda.time.DateTime;
 
 public class SwiftAcknowledgment extends SwiftMessage
 {
 
     private final boolean success;
     private final String acknowledger;
-    private final Date sentAt;
+    private final DateTime sentAt;
 
     public SwiftAcknowledgment(final String reference,
                                final String sender,
@@ -30,12 +27,12 @@ public class SwiftAcknowledgment extends SwiftMessage
                                final String type,
                                final boolean success,
                                final String acknowledger,
-                               final Date sentAt)
+                               final DateTime sentAt)
     {
         super(reference, sender, receiver, nature, type);
         this.success = success;
         this.acknowledger = acknowledger;
-        this.sentAt = Dates.clone(sentAt);
+        this.sentAt = sentAt;
     }
 
     public SwiftAcknowledgment(final SwiftMessage swift)
@@ -47,7 +44,7 @@ public class SwiftAcknowledgment extends SwiftMessage
              swift.getType(),
              Randoms.roll(0.95),
              "SWIFT",
-             Dates.now());
+             DateTime.now());
     }
 
     public boolean isSuccess()
@@ -60,9 +57,9 @@ public class SwiftAcknowledgment extends SwiftMessage
         return acknowledger;
     }
 
-    public Date getSentAt()
+    public DateTime getSentAt()
     {
-        return Dates.clone(sentAt);
+        return sentAt;
     }
 
     @Override
@@ -72,6 +69,6 @@ public class SwiftAcknowledgment extends SwiftMessage
                              super.toString(),
                              getAcknowledger(),
                              isSuccess(),
-                             new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").format(getSentAt()));
+                             getSentAt().toString());
     }
 }

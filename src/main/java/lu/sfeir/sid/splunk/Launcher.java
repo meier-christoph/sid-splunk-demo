@@ -12,17 +12,13 @@ package lu.sfeir.sid.splunk;
 
 import com.google.common.eventbus.AsyncEventBus;
 import com.google.common.eventbus.EventBus;
+import com.google.common.util.concurrent.RateLimiter;
 import lu.sfeir.sid.splunk.broker.Broker;
-import lu.sfeir.sid.splunk.broker.BrokerImpl;
 import lu.sfeir.sid.splunk.consumer.Consumer;
-import lu.sfeir.sid.splunk.consumer.ConsumerImpl;
 import lu.sfeir.sid.splunk.producer.Producer;
-import lu.sfeir.sid.splunk.producer.ProducerImpl;
-import lu.sfeir.sid.splunk.utils.Threads;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public final class Launcher
@@ -32,32 +28,22 @@ public final class Launcher
 
     public static void main(final String... args) throws Exception
     {
-        final ExecutorService srv = Executors.newFixedThreadPool(3);
-        final EventBus eventBus = new AsyncEventBus(srv);
+        final EventBus eventBus = new AsyncEventBus(Executors.newFixedThreadPool(3));
 
-        final Producer producer = new ProducerImpl(eventBus, 3);
-        producer.start();
+        final Producer producer = new Producer(eventBus,
+                                               Executors.newFixedThreadPool(3),
+                                               Executors.newFixedThreadPool(3));
+        new Broker(eventBus, Executors.newFixedThreadPool(3));
+        new Consumer(eventBus, Executors.newFixedThreadPool(3));
 
-        final Broker broker = new BrokerImpl(eventBus, 3);
-        broker.start();
-
-        final Consumer consumer = new ConsumerImpl(eventBus, 3);
-        consumer.start();
-
-
-        producer.fireMessage();
-        producer.fireMessages(500);
-
-        Runtime.getRuntime().addShutdownHook(new Thread()
+        RateLimiter limiter = RateLimiter.create(20);
+        for (int i = 0; i < 500; )
         {
-            public void run()
+            if (limiter.tryAcquire())
             {
-                LOG.warn("shutdown initiated ...");
-                Threads.shutdown(srv);
-                producer.stop();
-                broker.stop();
-                consumer.stop();
+                producer.fireMessage();
+                i++;
             }
-        });
+        }
     }
 }

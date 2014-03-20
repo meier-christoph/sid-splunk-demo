@@ -17,12 +17,11 @@ public final class Failures
     {
     }
 
-    public static void fail(final double probability, final String message, final String... args)
+    public static void fail(final double probability, final String message, final Object... args)
     {
         if (Randoms.roll(probability))
         {
-            final String msg = String.format(message, (Object[]) args);
-            throw new RuntimeException(msg);
+            throw new RuntimeException(String.format(message, args));
         }
     }
 }
