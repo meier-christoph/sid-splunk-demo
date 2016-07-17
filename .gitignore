@@ -4,3 +4,5 @@ target
 out
 build
 logs
+.DS_Store
+.gradle
